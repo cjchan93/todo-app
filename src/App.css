@@ -1,0 +1,28 @@
+.todo__heading {
+  font-size: 45px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.todo__input-form {
+  display: flex;
+  justify-content: center;
+}
+
+.todo__input-title {
+  max-width: 20%;
+  font-size: 25px;
+  margin-top: 18px;
+  font-weight: bold;
+}
+
+.todo__input-box {
+  max-width: 50%;
+  font-size: 25px;
+}
+
+.todo__input-button {
+  max-width: 30%;
+  font-size: 22px;
+  font-weight: 550;
+}
