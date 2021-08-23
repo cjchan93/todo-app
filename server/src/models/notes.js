@@ -3,11 +3,10 @@ module.exports = (sequelize, type) => {
     'notes',
     {
         id: {
-            type: type.INTEGER,
+            type: type.UUID,
             primaryKey: true,
-            defaultValue: type.id,
+            defaultValue: type.UUIDV4,
             allowNull: false,
-            autoIncrement: true
         },
         todo: {
             type: type.STRING,

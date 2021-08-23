@@ -5,19 +5,19 @@ const Op = Sequelize.Op;
 const todos = require("./");
 module.exports = {
   Query: {
-    allNotes: async () => {
-      const allNotes = await models.notes.findAll();
-      return allNotes;
+    getNotes: async () => {
+      const getNotes = await models.notes.findAll();
+      return getNotes;
     },
 
-    allUsers: async () => {
-      const allUsers = await models.users.findAll();
-      return allUsers;
+    getUsers: async () => {
+      const getUsers = await models.users.findAll();
+      return getUsers;
     },
 
-    oneNote: async (_, { todo }) => {
-      const oneNote = await models.notes.findOne({ where: { todo: { [Op.like]: `%${todo}%` } } });
-      return oneNote;
+    getNote: async (_, { todo }) => {
+      const getNote = await models.notes.findOne({ where: { todo: { [Op.like]: `%${todo}%` } } });
+      return getNote;
     }
   },
 
@@ -33,22 +33,20 @@ module.exports = {
       return await models.notes.create(newNote);
     },
 
-    deleteNote: async (_, { id }) => {
-      const tobeDeleted = await models.notes.findOne({ where: { id: id } });
+    deleteNote: async (_, { iD }) => {
+      const deleteNote = await models.notes.findOne({ where: { id: iD } });
       await models.notes.destroy({
-        where: { id: id },
+        where: { id: iD },
       });
-      return tobeDeleted;
+      return deleteNote;
     },
 
-    updateNote: async (_, { id, status }) => {
-      const updatedNotes = await models.notes.update(
-        { status: status },
-        { where: { id: id } }
+    updateStatus: async (_, { iD, newStatus }) => {
+      const updateStatus = await models.notes.update(
+        { status: { newStatus } },
+        { where: { id: iD } }
       );
-      return updatedNotes;
-    },
+      return updateStatus;
+    }
   },
 };
-
-//test

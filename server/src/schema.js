@@ -3,18 +3,18 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
 
 type Query{
-   allNotes: [Note]!
-   allUsers: [User]!
-   oneNote(todo: String): Note!
+   getNotes: [Note]!
+   getUsers: [User]!
+   getNote(todo: String): Note!
 }
 
 type User{
-    id: Int!
+    id: ID!
     email: String!
 }
 
 type Note{
-    id: Int!
+    id: ID!
     todo: String!
     status: Boolean!
 }
@@ -22,8 +22,8 @@ type Note{
 type Mutation{
     userLogin(email: String!): User,
     createNote(todo: String): Note!,
-    deleteNote(id: Int!): Note!,
-    updateNote(id: Int!, status:Boolean!): Note!
+    deleteNote(iD: ID!): Note!,
+    updateStatus(iD: ID!, newStatus:Boolean!): Note!
 }
 `;
 
