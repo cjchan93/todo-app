@@ -13,7 +13,8 @@ module.exports = (sequelize, type) => {
             allowNull: false
         },
         status: {
-            type: type.BOOLEAN
+            type: type.BOOLEAN,
+            allowNull: false
         }
     },
     {

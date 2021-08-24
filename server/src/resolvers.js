@@ -5,25 +5,22 @@ const Op = Sequelize.Op;
 module.exports = {
   Query: {
     getNotes: async () => {
-      const getNotes = await models.notes.findAll();
-      return getNotes;
+      return (getNotes = await models.notes.findAll());
     },
 
     getUsers: async () => {
-      const getUsers = await models.users.findAll();
-      return getUsers;
+      return (getUsers = await models.users.findAll());
     },
 
-    getNote: async (_, { todo }) => {
-      const getNote = await models.notes.findOne({
-        where: { todo: { [Op.like]: `%${todo}%` } },
+    getNote: async (_, { toDo }) => {
+      return models.notes.findAll({
+        where: { todo: { [Op.like]: `%${toDo}%` } },
       });
-      return getNote;
     },
 
-    getUser: async (_, { email }) => {
-      return getUser = await models.users.findOne({
-        where: { email: { [Op.like]: `%${email}%` } },
+    getUser: async (_, { eMail }) => {
+      return models.users.findAll({
+        where: { email: { [Op.like]: `%${eMail}%` } },
       });
     },
   },
@@ -53,8 +50,8 @@ module.exports = {
       return models.notes.findOne({ where: { id: iD } });
     },
 
-    updateNotes: async (_, { iD, noteInput }) => {
-      await models.notes.update({ todo: noteInput }, { where: { id: iD } });
+    updateNotes: async (_, { iD, toDo }) => {
+      await models.notes.update({ todo: toDo }, { where: { id: iD } });
       return models.notes.findOne({ where: { id: iD } });
     },
   },
