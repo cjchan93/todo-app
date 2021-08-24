@@ -2,7 +2,6 @@ const models = require("./models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
-const todos = require("./");
 module.exports = {
   Query: {
     getNotes: async () => {
@@ -16,19 +15,27 @@ module.exports = {
     },
 
     getNote: async (_, { todo }) => {
-      const getNote = await models.notes.findOne({ where: { todo: { [Op.like]: `%${todo}%` } } });
+      const getNote = await models.notes.findOne({
+        where: { todo: { [Op.like]: `%${todo}%` } },
+      });
       return getNote;
-    }
+    },
+
+    getUser: async (_, { email }) => {
+      return getUser = await models.users.findOne({
+        where: { email: { [Op.like]: `%${email}%` } },
+      });
+    },
   },
 
   Mutation: {
-    userLogin: async (_, { email }) => {
-      const user = await models.users.findOrCreate({ where: { email: email } });
-      return user;
+    userLogin: async (_, { eMail }) => {
+      await models.users.findOrCreate({ where: { email: eMail } });
+      return await models.users.findOne({ where: { email: eMail } });
     },
 
     createNote: async (_, { todo }) => {
-      const newNote = {todo};
+      const newNote = { todo };
       newNote.status = false; //Updated over here to make sure status is false when note is created.
       return await models.notes.create(newNote);
     },
@@ -42,11 +49,13 @@ module.exports = {
     },
 
     updateStatus: async (_, { iD, newStatus }) => {
-      const updateStatus = await models.notes.update(
-        { status: { newStatus } },
-        { where: { id: iD } }
-      );
-      return updateStatus;
-    }
+      await models.notes.update({ status: newStatus }, { where: { id: iD } });
+      return models.notes.findOne({ where: { id: iD } });
+    },
+
+    updateNotes: async (_, { iD, noteInput }) => {
+      await models.notes.update({ todo: noteInput }, { where: { id: iD } });
+      return models.notes.findOne({ where: { id: iD } });
+    },
   },
 };
